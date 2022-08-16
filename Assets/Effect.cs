@@ -5,9 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newEffect", menuName = "Effects")]
 public class Effect : ScriptableObject
 {
-    public string GetName()
+    [SerializeField]
+    private string _name;
+
+    private void OnEnable()
     {
-        return this.name;
+        _name = this.name;
+        if (_name.Length == 0) { _name = "Undefined"; }
     }
 
+    public string GetName() { return _name; }
 }
