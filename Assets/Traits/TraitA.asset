@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48dbd953e68a9674db5e13e7b5a63239, type: 3}
   m_Name: TraitA
   m_EditorClassIdentifier: 
-  _effect: {fileID: 11400000, guid: 4c5859e60d3bd244292cd07485f581c3, type: 2}
-  _effectLevel: {fileID: 11400000, guid: 22cc289327f6ac44a8282c4a03fd3420, type: 2}
+  _effect: {fileID: 0}
+  _effectLevel: {fileID: 0}
