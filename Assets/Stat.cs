@@ -5,16 +5,17 @@ using UnityEditor;
 
 [System.Serializable]
 [HelpURL("https://github.com/IJCoding/FromThineEyes/issues/6")]
-public class Stat : MonoBehaviour
+[CreateAssetMenu(fileName = "newStat", menuName = "Stats")]
+public class Stat : ScriptableObject
 {
-    [SerializeField]    private int _min = 0;
-    [SerializeField]    private int _cur = 0;
-    [SerializeField]    private int _max = 0;
+    [SerializeField]    private int _min;
+    [SerializeField]    private int _cur;
+    [SerializeField]    private int _max;
 
-    public Stat(int defMin = 0, int defCur = 0, int defMax = 0)
+    private void OnEnable()
     {
-        RedefineBounds(defMin, defMax);
-        AlterCur(defCur);
+        RedefineBounds(0, 12);
+        SetCur(6);        
     }
 
     public void RedefineBounds(int newMin, int newMax)

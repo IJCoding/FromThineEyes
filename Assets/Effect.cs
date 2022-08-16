@@ -5,9 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newEffect", menuName = "Effects")]
 public class Effect : ScriptableObject
 {
-    public string GetName()
-    {
-        return this.name;
-    }
-
+    public string GetName() { return this.name; }
 }
