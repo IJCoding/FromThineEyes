@@ -14,7 +14,13 @@ public class InteractableEditor : Editor
         //  EditorGUILayout.LabelField("Effect: " + _target.GetEffect().GetName());
 
         List<string> _statKeys = new List<string>(_target.GetStatDict().Keys);
-        
+        List<string> _traitKeys = new List<string>(_target.GetTraitDict().Keys);
+
+        GUIStyle bold = new GUIStyle();
+        bold.fontStyle = FontStyle.Bold;
+        bold.normal.textColor = Color.white;  
+
+        EditorGUILayout.LabelField("Stats", bold);
         //Stats        
         foreach (string key in _statKeys)
             {
@@ -31,6 +37,24 @@ public class InteractableEditor : Editor
         
                 EditorGUILayout.EndHorizontal();
             }
+        
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Traits", bold);
+        //Trait
+        foreach (string key in _traitKeys)
+        {
+            EditorGUILayout.BeginHorizontal();
 
+            float newCur = EditorGUILayout.Slider(key,
+                _target.GetTrait(key).GetLevel().GetCur(), _target.GetTrait(key).GetLevel().GetMin(),
+                _target.GetTrait(key).GetLevel().GetMax());
+
+            _target.GetTrait(key).GetLevel().SetCur((int)newCur);
+
+            GUILayout.Label(_target.GetTrait(key).GetLevel().GetMin().ToString() + "-" +
+                _target.GetTrait(key).GetLevel().GetMax().ToString());
+
+            EditorGUILayout.EndHorizontal();
+        }
     }
 }
