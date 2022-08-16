@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    public Stat _Health, _Armour, _Speed, _Acuity;
-
+    private Dictionary<string, Stat>  _Stats = new Dictionary<string, Stat>();
+     
     private void Start()
     {
-        _Health = Stat.CreateInstance<Stat>();
-        _Armour = Stat.CreateInstance<Stat>();
-        _Speed  = Stat.CreateInstance<Stat>();
-        _Acuity = Stat.CreateInstance<Stat>();
+        _Stats.Add("Health", Stat.CreateInstance<Stat>());
+        _Stats.Add("Armour", Stat.CreateInstance<Stat>());
     }
 
-    public Stat GetHealth() { return _Health; }
-    public Stat GetArmour() { return _Armour; }
-    public Stat GetSpeed()  { return _Speed;  }
-    public Stat GetAcuity() { return _Acuity; }
+    public Dictionary<string, Stat> GetStatDict() {  return _Stats; }
+   
+
+    public Stat GetStat(string key) { return _Stats[key]; }
+    public void AlterStat(string key, int changeAmount) { _Stats[key].AlterCur(changeAmount); }
 
 }
