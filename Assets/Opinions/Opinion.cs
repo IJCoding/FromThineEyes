@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
+[CreateAssetMenu(fileName = "newOpinion", menuName = "Opinions")]
 public class Opinion : ScriptableObject
 {
     private Dictionary<Interactable, Dictionary<string, Trait>> _Opinions = new Dictionary<Interactable, Dictionary<string, Trait>>();
-
+    
     public Dictionary<Interactable, Dictionary<string, Trait>> GetDictOpinion() { return _Opinions; }
 
     public Dictionary<string, Trait> GetOpinion(Interactable subject) { return _Opinions[subject]; }
@@ -25,7 +27,7 @@ public class Opinion : ScriptableObject
         if (!HasOpinion(subject)) { _Opinions.Add(subject, new Dictionary<string, Trait>()); }
 
         //As will now have some opinion, check it doesnt already have the same opinon
-        if (!HasView(subject, opinion)) { } _Opinions[subject].Add(opinion.GetName(), opinion);
+        if (!HasView(subject, opinion)) { _Opinions[subject].Add(opinion.GetName(), opinion); }
     }
 
     public void RemoveOpinion(Interactable subject, Trait opinion)
@@ -63,4 +65,18 @@ public class Opinion : ScriptableObject
             ClearOpinion(key);
         }
     }
+
+    private void OnEnable()
+    {
+        Interactable testI0 = Interactable.CreateInstance<Interactable>();
+        Interactable testI1 = Interactable.CreateInstance<Interactable>();
+
+        testI0.name = "testInteractable0";
+        testI1.name = "testInteractable1";
+
+        AddOpinion(testI0, Trait.CreateInstance<Trait>());
+        AddOpinion(testI1, Trait.CreateInstance<Trait>());               
+
+    }
+
 }

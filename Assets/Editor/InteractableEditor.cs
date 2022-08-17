@@ -11,8 +11,6 @@ public class InteractableEditor : Editor
     {
         Interactable _target = target as Interactable;
 
-        //  EditorGUILayout.LabelField("Effect: " + _target.GetEffect().GetName());
-
         List<string> _statKeys = new List<string>(_target.GetStatDict().Keys);
         List<string> _traitKeys = new List<string>(_target.GetTraitDict().Keys);
 
