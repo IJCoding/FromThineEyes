@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+[CreateAssetMenu(fileName = "newInteractable", menuName = "Interactables")]
+public class Interactable : ScriptableObject
 {
     private Dictionary<string, Stat>  _Stats = new Dictionary<string, Stat>();
     private Dictionary<string, Trait> _Trait = new Dictionary<string, Trait>();
@@ -15,5 +16,16 @@ public class Interactable : MonoBehaviour
     public void AlterStat(string key, int changeAmount) { _Stats[key].AlterCur(changeAmount); }
     public Trait GetTrait(string key) { return _Trait[key]; }
     public void AlterTraitLevel(string key, int changeAmount) { _Trait[key].GetLevel().AlterCur(changeAmount); }
+
+    private void OnEnable()
+    {
+        _Stats.Add("Stat0", Stat.CreateInstance<Stat>());
+        _Stats.Add("Stat1", Stat.CreateInstance<Stat>());
+        _Stats.Add("Stat2", Stat.CreateInstance<Stat>());
+
+        _Trait.Add("Trait0", Trait.CreateInstance<Trait>());
+        _Trait.Add("Trait1", Trait.CreateInstance<Trait>());
+        _Trait.Add("Trait2", Trait.CreateInstance<Trait>());
+    }
 
 }
