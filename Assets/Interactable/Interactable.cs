@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "newInteractable", menuName = "Interactables")]
+[CreateAssetMenu(fileName = "newInteractable", menuName = "Interactables/Undefined")]
 public class Interactable : ScriptableObject
 {
-    private Dictionary<string, Stat>  _Stats = new Dictionary<string, Stat>();
-    private Dictionary<string, Trait> _Trait = new Dictionary<string, Trait>();
+    protected Dictionary<string, Stat>  _Stats = new Dictionary<string, Stat>();
+    protected Dictionary<string, Trait> _Trait = new Dictionary<string, Trait>();
 
     public Dictionary<string, Stat> GetStatDict() {  return _Stats; }
 

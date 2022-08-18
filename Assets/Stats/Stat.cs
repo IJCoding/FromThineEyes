@@ -12,6 +12,13 @@ public class Stat : ScriptableObject
     [SerializeField]    private int _cur;
     [SerializeField]    private int _max;
 
+    public Stat(int min, int cur, int max)
+    {
+        _min = min;
+        _cur = cur;
+        _max = max;
+    }
+
     private void OnEnable()
     {
         RedefineBounds(0, 12);
