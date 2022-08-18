@@ -21,7 +21,6 @@ public class OpinionEditor : Editor
         foreach (Interactable inter in _interKeys)
         {
             EditorGUILayout.LabelField(inter.name, bold);
-            List<string> _traitKeys = new List<string>(_target.GetOpinion(inter).Keys);
 
             Editor editor = Editor.CreateEditor(inter);
             editor.OnInspectorGUI();
