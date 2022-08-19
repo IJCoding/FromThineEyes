@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 [AddComponentMenu(menuName: "Interactables/Sentient - Undefined")]
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(SphereCollider), typeof(NavMeshAgent))]
 [DisallowMultipleComponent]
 public class Sentient : MonoBehaviour
 {
@@ -20,11 +23,22 @@ public class Sentient : MonoBehaviour
 
     [SerializeField]
     private Opinion _Opinions;
-    
 
-    private void Start()
+    [SerializeField]
+    private GameObject _Target = null;
+
+    [SerializeField]
+    private int _SentientBerth = 3;
+
+    private NavMeshAgent _NavMeshAgent = null;
+
+    private void Awake()
     {
         _AreaCollider = GetComponentInParent<SphereCollider>();
+        _NavMeshAgent = GetComponentInParent<NavMeshAgent>();
+    }
+    private void Start()
+    {
 
         _Info = Interactable.CreateInstance<Interactable>();
         _Info.GetStatDict().Clear();
@@ -47,7 +61,18 @@ public class Sentient : MonoBehaviour
         _Opinions.name = this.name;
 
         Invoke("SelfIdentify", 1);
-        Invoke("Identify", 1);
+
+    }
+
+    private void Update()
+    {
+        if(_Target != null) Move(_Target);
+    }
+
+    public void OnDrawGizmos()
+    {
+        if (_AreaCollider == null) _AreaCollider = GetComponentInParent<SphereCollider>();
+        Gizmos.DrawWireSphere(GetComponentInParent<Transform>().position, _AreaCollider.radius);
     }
 
     public void SelfIdentify()
@@ -89,5 +114,30 @@ public class Sentient : MonoBehaviour
     public Interactable GetInfo()
     {
         return _Info;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Identify(other.gameObject);
+    }
+
+    private void Move(Transform target)
+    {
+        _NavMeshAgent.destination = target.position;
+    }
+
+    private float DistanceToTarget()
+    {
+        return Vector3.Distance(this.transform.position, _Target.transform.position);
+    }
+
+    private void Move(GameObject gObject)
+    {
+        if(gObject.GetComponent<Sentient>()!= null)
+        {
+             Move(gObject.transform);
+            _NavMeshAgent.isStopped = DistanceToTarget() <= _SentientBerth;
+        }
+        
     }
 }
